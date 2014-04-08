@@ -1,0 +1,545 @@
+body{
+	background: black;
+}
+
+/*-------------------------------------*/
+/*  Start div#artmix innerds */
+
+div#artmix{
+	margin-left: auto;
+	margin-right: auto;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+audio#controlbox{
+	margin-left: auto;
+	margin-right: auto;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	border: 1px solid black;
+	height: 28px;
+	width: 200px;
+	position:absolute;
+	bottom: -60px;
+	right: -100px;
+}
+
+@-webkit-keyframes pulse {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1.0;
+  }
+}
+
+@-moz-keyframes pulse {
+      from {
+        opacity: 0.2;
+      }
+      to {
+        opacity: 1.0;
+      }
+    }
+
+
+p#loading{
+	color: white;
+	margin: 75px;
+	text-shadow: 1px 1px 1px #000;
+	font-family: Tahoma, Geneva, sans-serif;
+	-moz-animation-name: pulse;
+	-moz-animation-duration: 3s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-timing-function: ease-in-out;
+	-moz-animation-direction: alternate;
+	-webkit-animation-name: pulse;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-direction: alternate;
+	-webkit-animation-duration: 3s;
+}
+
+/*  end div#artmix innerds */
+/*-------------------------------------*/
+
+/*-------------------------------------*/
+/*  Start ArtMixMinMax button */
+
+div#ArtMixMinMax{
+	position: absolute;
+	top: 1px;
+	left: 1px;
+	z-index: 3;
+	border: 1px solid gray;
+	height: 58px;
+	width: 58px;
+	background: silver;
+}
+
+div#ArtMixMinMax span.box{
+	position: absolute;
+	line-height: 58px;
+	font-size: 46px;
+	font-weight: bold;
+	color: black;
+	padding: 0px;
+	margin: 0px;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+
+div#ArtMixMinMax span.left{
+	top: -1px;
+	left: -6px;
+	transform:rotate(90deg);
+	-ms-transform:rotate(90deg); /* IE 9 */
+	-webkit-transform:rotate(90deg); /* Opera, Chrome, and Safari */
+    transition: all .5s;
+    -webkit-transition: all .5s; /* Safari and Chrome */
+    -o-transition: all .5s; /* Opera */
+}
+
+div#ArtMixMinMax span.right{
+	top: 0px;
+	left: 24px;
+	transform:rotate(-90deg);
+	-ms-transform:rotate(-90deg); /* IE 9 */
+	-webkit-transform:rotate(-90deg); /* Opera, Chrome, and Safari */
+    transition: all .5s;
+    -webkit-transition: all .5s; /* Safari and Chrome */
+    -o-transition: all .5s; /* Opera */
+}
+
+div#ArtMixMinMax span.top{
+	top: -23px;
+	left: 9px;
+	transform:rotate(0deg);
+	-ms-transform:rotate(0deg); /* IE 9 */
+	-webkit-transform:rotate(0deg); /* Opera, Chrome, and Safari */
+    transition: all .5s;
+    -webkit-transition: all .5s; /* Safari and Chrome */
+    -o-transition: all .5s; /* Opera */
+}
+
+div#ArtMixMinMax span.bottom{
+	top: 22px;
+	left: 9px;
+	transform:rotate(180deg);
+	-ms-transform:rotate(180deg); /* IE 9 */
+	-webkit-transform:rotate(180deg); /* Opera, Chrome, and Safari */
+    transition: all .5s;
+    -webkit-transition: all .5s; /* Safari and Chrome */
+    -o-transition: all .5s; /* Opera */
+}
+
+div#ArtMixMinMax span.flat{
+	transform:rotate(0deg);
+	top: -2px;
+	left: 8px;
+	-ms-transform:rotate(0deg); /* IE 9 */
+	-webkit-transform:rotate(0deg); /* Opera, Chrome, and Safari */
+    transition: all .5s;
+    -webkit-transition: all .5s; /* Safari and Chrome */
+    -o-transition: all .5s; /* Opera */
+}
+
+/*  End ArtMixMinMax button */
+/*-------------------------------------*/
+
+/*-------------------------------------*/
+/*  Start ArtMixSettings div */
+
+div#ArtMixSettings{
+	position: absolute;
+	left: 64px;
+	border: 1px solid black;
+	background-color: rgba(255,255,255,0.7);
+	width: -moz-calc(100% - 66px);
+    width: -webkit-calc(100% - 66px);
+    width: calc(100% - 66px);
+}
+
+div.ArtMixSettingsClosed{
+	top: 0px;
+	height: 1px;
+    -webkit-transition: all .5s; /* Safari and Chrome */
+    -o-transition: all .5s; /* Opera */
+    transition: all .5s;
+}
+
+div.ArtMixSettingsOpen{
+	top: 1px;
+	height: 58px;
+    -webkit-transition: all .5s; /* Safari and Chrome */
+    -o-transition: all .5s; /* Opera */
+    transition: all .5s;
+}
+
+select.ArtMixSettingForm{
+	width: 100px;
+}
+
+input#ArtMixAudioSrc1, input#ArtMixAudioSrc2, input#ArtMixAudioSrc3{
+	width: 210px;
+}
+
+/*  End ArtMixSettings div */
+/*-------------------------------------*/
+
+
+/*-------------------------------------*/
+/*  Start ArtMixlines div */
+
+div#ArtMixlines{
+	position: absolute;
+	height: 700px;
+	top: 64px;
+	left: 1px;
+	border: 1px solid black;
+	background-color: rgba(255,255,255,0.7);
+}
+
+div.ArtMixlinesClosed{
+	left: 0px;
+	width: 1px;
+    -webkit-transition: all .5s; /* Safari and Chrome */
+    -o-transition: all .5s; /* Opera */
+    transition: all .5s;
+	overflow-y:hidden;
+}
+
+div.ArtMixlinesOpen{
+	left: 1px;
+	width: 311px;
+    -webkit-transition: all .5s; /* Safari and Chrome */
+    -o-transition: all .5s; /* Opera */
+    transition: all .5s;
+	overflow-y:scroll;
+}
+
+input#ArtMixDownload{
+	position: absolute;
+	top: 770px;
+	left: 3px;
+	width: 75px;
+}
+
+input#ArtMixTime, input#ArtMixDiff{
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	position: absolute;
+	color: black;
+	height: 14px;
+	left: 100px;
+	width: 150px;
+}
+
+
+input#ArtMixRestore{
+	position: absolute;
+	top: 790px;
+	left: 3px;
+	width: 75px;
+}
+
+input#ArtMixTime{
+	top: 770px;
+}
+
+input#ArtMixDiff{
+	top: 790px;
+}
+
+/*  End ArtMixlines div */
+/*-------------------------------------*/
+
+/*-------------------------------------*/
+/*  Start Form css   */
+
+.ArtMixSettingForm{
+	margin-top: 5px;
+	margin-left: 3px;
+	line-height: 12px;
+}
+
+label.ArtMixSettingForm{
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+}
+
+select.ArtMixSettingForm {
+	height: 12px;
+}
+
+.ArtMixFormClosed{
+	opacity:0;
+}
+
+.ArtMixFormOpen{
+	opacity:1;
+    transition: all .5s;
+}
+
+div.ArtMixFormClosed{
+	opacity:0;
+    transition: all 0s;
+}
+
+div.ArtMixFormOpen{
+	opacity:1;
+    transition: all .5s;
+}
+
+input.ArtMixSettingForm{
+	width: 20px;
+}
+/*  End Form css   */
+/*-------------------------------------*/
+
+/*-------------------------------------*/
+/*  Start font basics   */
+
+div.Characters{
+	position: absolute;
+	height: 32px;
+	width: 32px;
+	text-align: center;
+}
+
+span.regChar{
+  font-size: 32px;
+  color: gray;
+}
+
+span.lineChar{
+	font-size: 42px;
+	color: red;
+	position: relative;
+	top: -2px;
+}
+
+/*  End font basics   */
+/*-------------------------------------*/
+
+/*-------------------------------------*/
+/*  Start font families   */
+
+span.ArtMixArial{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 31px;
+}
+
+span.ArtMixArialBlack{
+	font-family: "Arial Black", Gadget, sans-serif;
+	font-size: 31px;
+}
+
+span.ArtMixImpact{
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 39px;
+}
+
+span.ArtMixLucidaSansUnicode{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 27px;
+}
+
+span.ArtMixTahoma{
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 29px;
+}
+
+span.ArtMixTrebuchetMS{
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	font-size: 31px;
+}
+
+span.ArtMixVerdana{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 31px;
+}
+
+span.ArtMixCourierNew{
+	font-family: "Courier New", Courier, monospace;
+	font-size: 35px;
+}
+span.ArtMixLucidaConsole{
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 37px;
+}
+
+
+/*  End font families   */
+/*-------------------------------------*/
+
+/*-------------------------------------*/
+/*  Start font colors   */
+
+span.ArtMixF0F8FF{
+	color: #F0F8FF;
+}
+span.ArtMix000000{
+	color: #000000;
+}
+span.ArtMix8A2BE2{
+	color: #8A2BE2;
+}
+span.ArtMixFF7F50{
+	color: #FF7F50;
+}
+span.ArtMixDC143C{
+	color: #DC143C;
+}
+span.ArtMixB8860B{
+	color: #B8860B;
+}
+span.ArtMix8B008B{
+	color: #8B008B;
+}
+span.ArtMix2F4F4F{
+	color: #2F4F4F;
+}
+span.ArtMixDAA520{
+	color: #DAA520;
+}
+
+/*  End font colors   */
+/*-------------------------------------*/
+
+
+/*-------------------------------------*/
+/*  Start lines form   */
+input.ArtMixLineForm, label.ArtMixLineForm, textarea.ArtMixLineForm{
+	line-height: 12px;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	text-shadow: 3px 3px 3px #fff;
+}
+
+label.ArtMixLineForm{
+	margin-left: 10px;
+	margin-right: 2px;
+}
+
+input.ArtMixLine{
+	width: 284px;
+	margin-left: 1px;
+}
+input.ArtMixNumber{
+	width: 36px;
+}
+
+div.ArtMixLineDiv{
+	margin: 10px 1px;
+	padding: 3px 0px;
+	display: block;
+}
+
+div.ArtMixOdd{
+	background: repeating-linear-gradient(
+	  135deg,
+	  rgba(255, 255, 255, 0.4),
+	  rgba(255, 255, 255, 0.4) 10px,
+	  rgba(190, 190, 190, 0.3) 10px,
+	  rgba(190, 190, 190, 0.3) 20px
+	);
+}
+
+div.ArtMixEven{
+	background: repeating-linear-gradient(
+	  45deg,
+	  rgba(190, 190, 190, 0.3),
+	  rgba(190, 190, 190, 0.3) 10px,
+	  rgba(255, 255, 255, 0.4) 10px,
+	  rgba(255, 255, 255, 0.4) 20px
+	);
+}
+
+label.ArtMixLineNumber{
+	border-radius: 8px;
+	border: 1px solid black;
+	padding: 0px 4px;
+	position: relative;
+	left: -8px;
+	background: #ffffff;
+}
+
+
+div.ArtMixPreviewButton{
+	cursor: pointer;
+	float: right;
+	margin-right: 5px;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	padding: 0px 3px;
+	border: 1px white solid;
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+
+div.ArtMixPreviewButtonOn{
+	background-color: rgba(190, 190, 190, 0.8);
+	border: 1px white groove;
+}
+
+div.ArtMixDeleteButton{
+	cursor: pointer;
+	font-weight: bold;
+	float: right;
+	margin-right: 5px;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+}
+
+div.ArtMixAddButton{
+	cursor: pointer;
+	font-weight: bold;
+	float: left;
+	margin-left: 5px;
+	border: 1px solid black;
+	padding: 0px 4px;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	position: relative;
+	left: -3px;
+	top: 2px;
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+textarea.ArtMixStyle{
+	margin-left: 10px;
+	width: 270px;
+}
+
+input.ArtMixLineForm.ArtMixProblem{
+	border: 1px red dashed;
+	background: yellow;
+}
+
+/*  End lines form    */
+/*-------------------------------------*/
+
+
+
+audio#controlbox{
+  margin-left: auto;
+  margin-right: auto;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  border: 1px solid black;
+  height: 28px;
+  width: 200px;
+  position:absolute;
+  bottom: -60px;
+  right: -100px;
+}
