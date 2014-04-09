@@ -1,7 +1,7 @@
 Artmix v 0.1
 ======
 
-A simple and secure MP3 visualization writing in JavaScript and CSS.
+A simple and secure MP3 visualization written in JavaScript and CSS.
 Artmix has no dependencies and shouldn't conflict with libraries like jQuery
 
 Install:
