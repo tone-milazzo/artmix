@@ -1,0 +1,19 @@
+body{
+	background: black;
+}
+
+div.jumbotron h1{
+	text-align: center;
+}
+
+div#artmix{
+	margin-left: auto;
+	margin-right: auto;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	position: absolute;
+	top: 345px;
+	left: 50%;
+}

@@ -1,21 +1,9 @@
-body{
-	background: black;
-}
+
 
 /*-------------------------------------*/
-/*  Start div#artmix innerds */
+/*  Start div#artmix innards */
 
-div#artmix{
-	margin-left: auto;
-	margin-right: auto;
-	transform: translate(-50%, -50%);
-	-webkit-transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	position: absolute;
-	top: 50%;
-	left: 50%;
-}
+
 
 audio#controlbox{
 	margin-left: auto;
@@ -229,7 +217,7 @@ input#ArtMixDownload{
 	position: absolute;
 	top: 770px;
 	left: 3px;
-	width: 75px;
+	width: 80px;
 }
 
 input#ArtMixTime, input#ArtMixDiff{
@@ -240,6 +228,7 @@ input#ArtMixTime, input#ArtMixDiff{
 	height: 14px;
 	left: 100px;
 	width: 150px;
+	height: 20px;
 }
 
 
@@ -247,7 +236,7 @@ input#ArtMixRestore{
 	position: absolute;
 	top: 790px;
 	left: 3px;
-	width: 75px;
+	width: 80px;
 }
 
 input#ArtMixTime{
@@ -255,7 +244,7 @@ input#ArtMixTime{
 }
 
 input#ArtMixDiff{
-	top: 790px;
+	top: 800px;
 }
 
 /*  End ArtMixlines div */
@@ -268,6 +257,7 @@ input#ArtMixDiff{
 	margin-top: 5px;
 	margin-left: 3px;
 	line-height: 12px;
+	font-size: 12px;
 }
 
 label.ArtMixSettingForm{
@@ -277,6 +267,11 @@ label.ArtMixSettingForm{
 
 select.ArtMixSettingForm {
 	height: 12px;
+}
+
+input.ArtMixSettingForm{
+	height: 16px;
+	padding: 0px;
 }
 
 .ArtMixFormClosed{
@@ -320,7 +315,7 @@ span.regChar{
 }
 
 span.lineChar{
-	font-size: 42px;
+	font-size: 34px;
 	color: red;
 	position: relative;
 	top: -2px;
@@ -376,6 +371,12 @@ span.ArtMixLucidaConsole{
 	font-size: 37px;
 }
 
+span.ArtMixManualBGFont{
+}
+
+span.ArtMixManualFGFont{
+}
+
 
 /*  End font families   */
 /*-------------------------------------*/
@@ -409,6 +410,11 @@ span.ArtMix2F4F4F{
 }
 span.ArtMixDAA520{
 	color: #DAA520;
+}
+
+span.ArtMixManualBGColor{
+}
+span.ArtMixManualFGColor{
 }
 
 /*  End font colors   */

@@ -48,10 +48,10 @@ SOFTWARE.
 
 */
 
-
 window.onload = function start(){
 	artmix = new ArtMix();
 	artmix.LoadConfig();
+	artmix.OpenStorage();
 	artmix.MinMaxButton();
 	artmix.InjectDrawArea();
 	artmix.SquareGen();
@@ -77,30 +77,37 @@ function ArtMix(){
 
 ArtMix.prototype.LoadConfig = function(){
 	// config.js contains to array declarations, Settings and LineaAndTimes
-	if(typeof Settings != 'undefined'){
-		this.Settings = Settings;
+	if(typeof savedSettings != 'undefined'){
+		this.Settings = savedSettings;
 	}else{
 		//defaults
-		this.Settings = {"xwidth":26,"yheight":10,"charSpacing":28,"editmode":true,"audioSrc1":"","audioSrc2":"","audioSrc3":"","BGFont":"ArtMixLucidaSansUnicode","FGFont":"ArtMixVerdana","BGColor":"ArtMix8B008B","FGColor":"ArtMixDC143C"};
+		this.Settings = {"xwidth":26,"yheight":10,"charSpacing":28,"editmode":true,"audioSrc1":"","audioSrc2":"","audioSrc3":"","BGFont":"ArtMixManualBGFont","FGFont":"ArtMixManualFGFont","BGColor":"ArtMixManualBGColor","FGColor":"ArtMixManualFGColor"};
 	}
-	if(typeof LinesAndTimes != 'undefined'){
-		this.LinesAndTimes = LinesAndTimes;
+	if(typeof savedLinesAndTimes != 'undefined'){
+		this.LinesAndTimes = savedLinesAndTimes;
 	}else{
 		this.LinesAndTimes = new Array();
 	}
-
+	if(typeof savedAt != 'undefined'){
+		this.savedAt = new Date(savedAt);
+	}else{
+		this.savedAt = new Date(0);
+	}
 }
 
 ArtMix.prototype.InjectDrawArea = function(){
+	var type1, type2, type3;
+
+	this.Settings.audioSrc1.substr(this.Settings.audioSrc1.lastIndexOf('.')+1,this.Settings.audioSrc1.length).toLocaleLowerCase();
 	// inject controls and such into div#artmix
 	document.getElementById("artmix").innerHTML = '<div id="content">' +
 			'<p id="loading">Loading</p>' +
 		'</div>' +
 	'<audio controls id="controlbox" preload="auto" onplay="artmix.startArtMix()" onpause="artmix.stopArtMix()" ' +
 	' onended="artmix.stopArtMix()">' +
-  	'<source id="ArtMixSrc1" src="' + this.Settings.audioSrc1 + '" type="audio/mp3">' +
-  	'<source id="ArtMixSrc2" src="' + this.Settings.audioSrc2 + '" type="audio/mp3">' +
-  	'<source id="ArtMixSrc3" src="' + this.Settings.audioSrc3 + '" type="audio/mp3">' +
+  	'<source id="ArtMixSrc1" src="' + this.Settings.audioSrc1 + '" type="audio/' + this.Settings.audioSrc1.substr(this.Settings.audioSrc1.lastIndexOf('.')+1,this.Settings.audioSrc1.length).toLocaleLowerCase() + '">' +
+  	'<source id="ArtMixSrc2" src="' + this.Settings.audioSrc2 + '" type="audio/' + this.Settings.audioSrc2.substr(this.Settings.audioSrc1.lastIndexOf('.')+1,this.Settings.audioSrc1.length).toLocaleLowerCase() + '">' +
+  	'<source id="ArtMixSrc3" src="' + this.Settings.audioSrc3 + '" type="audio/' + this.Settings.audioSrc3.substr(this.Settings.audioSrc1.lastIndexOf('.')+1,this.Settings.audioSrc1.length).toLocaleLowerCase() + '">' +
 		'Your browser does not support the audio element.' +
 	'</audio>';
 }
@@ -281,7 +288,7 @@ ArtMix.prototype.drawLine = function(line){
 		break;
 		case "diagonalUp":
 			for( var j=0; j<line.line.length; ++j){
-				if(((line.y - j) >= (this.Settings.yheight)) || ((+line.x + +j) >= (this.Settings.xwidth)))
+				if(((line.y - j) >= (this.Settings.yheight)) || ((+line.x + +j) >= (this.Settings.xwidth)) || ((+line.x - +j) <= 0))
 					continue;
 				var nextChar = line.line.charAt(j);
 				if(nextChar == "_") continue;
@@ -353,6 +360,7 @@ ArtMix.prototype.MinMaxButton = function (){
 			'<input id="ArtMixSpacing" onchange="artmix.SettingChanged(this.id, this.value)" class="ArtMixSettingForm  ArtMixFormClosed" type="number" value="' + this.Settings.charSpacing + '"/> '+
 			'<label for="ArtMixBGFont" class="ArtMixSettingForm ArtMixFormClosed">BG Font </label>'+
 			'<select id="ArtMixBGFont" onchange="artmix.SettingChanged(this.id, this.value)" class="ArtMixSettingForm  ArtMixFormClosed" value="' + this.Settings.BGFont + '">' +
+				'<option class="ArtMixManualBGFont" value="ArtMixManual">Manual (by CSS)</option>' +
 				'<option class="ArtMixArial" value="ArtMixArial">Arial</option>' +
 				'<option class="ArtMixArialBlack" value="ArtMixArialBlack">Arial Black</option>' +
 				'<option class="ArtMixImpact" value="ArtMixImpact">Impact</option>' +
@@ -362,10 +370,10 @@ ArtMix.prototype.MinMaxButton = function (){
 				'<option class="ArtMixVerdana" value="ArtMixVerdana">Verdana</option>' +
 				'<option class="ArtMixCourierNew" value="ArtMixCourierNew">Courier New</option>' +
 				'<option class="ArtMixLucidaConsole" value="ArtMixLucidaConsole">Lucida Console</option>' +
-				'<option class="ArtMixManual" value="ArtMixManual">Manual (by CSS)</option>' +
 			'</select>' +
 			'<label for="ArtMixFGFont" class="ArtMixSettingForm ArtMixFormClosed">FG Font </label>'+
 			'<select id="ArtMixFGFont" onchange="artmix.SettingChanged(this.id, this.value)" class="ArtMixSettingForm  ArtMixFormClosed" value="' + this.Settings.FGFont + '">' +
+				'<option class="ArtMixManualFGFont" value="ArtMixManual">Manual (by CSS)</option>' +
 				'<option class="ArtMixArial" value="ArtMixArial">Arial</option>' +
 				'<option class="ArtMixArialBlack" value="ArtMixArialBlack">Arial Black</option>' +
 				'<option class="ArtMixImpact" value="ArtMixImpact">Impact</option>' +
@@ -375,10 +383,10 @@ ArtMix.prototype.MinMaxButton = function (){
 				'<option class="ArtMixVerdana" value="ArtMixVerdana">Verdana</option>' +
 				'<option class="ArtMixCourierNew" value="ArtMixCourierNew">Courier New</option>' +
 				'<option class="ArtMixLucidaConsole" value="ArtMixLucidaConsole">Lucida Console</option>' +
-				'<option class="ArtMixManual" value="ArtMixManual">Manual (by CSS)</option>' +
 			'</select>' +
 			'<label for="ArtMixBGColor" class="ArtMixSettingForm ArtMixFormClosed">BG Color </label>'+
 			'<select id="ArtMixBGColor" onchange="artmix.SettingChanged(this.id, this.value)" class="ArtMixSettingForm  ArtMixFormClosed" value="' + this.Settings.BGColor + '">' +
+				'<option class="ArtMixManualBGColor" value="ArtMixManual">Manual (by CSS)</option>' +
 				'<option class="ArtMixF0F8FF" value="ArtMixF0F8FF">Alice Blue</option>' +
 				'<option class="ArtMix000000" value="ArtMix000000">Black</option>' +
 				'<option class="ArtMix8A2BE2" value="ArtMix8A2BE2">Blue Violet </option>' +
@@ -388,10 +396,10 @@ ArtMix.prototype.MinMaxButton = function (){
 				'<option class="ArtMix8B008B" value="ArtMix8B008B">Dark Magenta</option>' +
 				'<option class="ArtMix2F4F4F" value="ArtMix2F4F4F">Dark Slate Gray</option>' +
 				'<option class="ArtMixDAA520" value="ArtMixDAA520">Golden Rod</option>' +
-				'<option class="ArtMixManual" value="ArtMixManual">Manual (by CSS)</option>' +
 			'</select>' +
 			'<label for="ArtMixFGColor" class="ArtMixSettingForm ArtMixFormClosed">FG Color </label>'+
 			'<select id="ArtMixFGColor" onchange="artmix.SettingChanged(this.id, this.value)" class="ArtMixSettingForm  ArtMixFormClosed" value="' + this.Settings.FGColor + '">' +
+				'<option class="ArtMixManualFGColor" value="ArtMixManual">Manual (by CSS)</option>' +
 				'<option class="ArtMixF0F8FF" value="ArtMixF0F8FF">Alice Blue</option>' +
 				'<option class="ArtMix000000" value="ArtMix000000">Black</option>' +
 				'<option class="ArtMix8A2BE2" value="ArtMix8A2BE2">Blue Violet </option>' +
@@ -401,15 +409,14 @@ ArtMix.prototype.MinMaxButton = function (){
 				'<option class="ArtMix8B008B" value="ArtMix8B008B">Dark Magenta</option>' +
 				'<option class="ArtMix2F4F4F" value="ArtMix2F4F4F">Dark Slate Gray</option>' +
 				'<option class="ArtMixDAA520" value="ArtMixDAA520">Golden Rod</option>' +
-				'<option class="ArtMixManual" value="ArtMixManual">Manual (by CSS)</option>' +
 			'</select>' +
 			'<br/>' +
 			'<label for="ArtMixAudioSrc1" class="ArtMixSettingForm ArtMixFormClosed">Source 1: </label>'+
-			'<input id="ArtMixAudioSrc1" placeholder="Path to streaming MP3" onchange="artmix.SettingChanged(this.id, this.value)"  class="ArtMixSettingForm  ArtMixFormClosed" type="text" value="' + this.Settings.audioSrc1 + '"/> '+
+			'<input id="ArtMixAudioSrc1" placeholder="Path to streaming MP3, OGG or WAV" onchange="artmix.SettingChanged(this.id, this.value)"  class="ArtMixSettingForm  ArtMixFormClosed" type="text" value="' + this.Settings.audioSrc1 + '"/> '+
 			'<label for="ArtMixAudioSrc2" class="ArtMixSettingForm ArtMixFormClosed">Source 2: </label>'+
-			'<input id="ArtMixAudioSrc2" placeholder="Path to streaming MP3" onchange="artmix.SettingChanged(this.id, this.value)"  class="ArtMixSettingForm  ArtMixFormClosed" type="text" value="' + this.Settings.audioSrc2 + '"/> '+
+			'<input id="ArtMixAudioSrc2" placeholder="Path to streaming MP3, OGG or WAV" onchange="artmix.SettingChanged(this.id, this.value)"  class="ArtMixSettingForm  ArtMixFormClosed" type="text" value="' + this.Settings.audioSrc2 + '"/> '+
 			'<label for="ArtMixAudioSrc3" class="ArtMixSettingForm ArtMixFormClosed">Source 3: </label>'+
-			'<input id="ArtMixAudioSrc3" placeholder="Path to streaming MP3" onchange="artmix.SettingChanged(this.id, this.value)"  class="ArtMixSettingForm  ArtMixFormClosed" type="text" value="' + this.Settings.audioSrc3 + '"/> '+
+			'<input id="ArtMixAudioSrc3" placeholder="Path to streaming MP3, OGG or WAV" onchange="artmix.SettingChanged(this.id, this.value)"  class="ArtMixSettingForm  ArtMixFormClosed" type="text" value="' + this.Settings.audioSrc3 + '"/> '+
 			'</div>'+
 		'<div id="ArtMixlines" class="ArtMixlinesClosed">'+
 		'</div>' +
@@ -516,6 +523,7 @@ ArtMix.prototype.SettingChanged = function (ArtMixSetting, ArtMixValue){
 		default:
 			console.debug( ArtMixSetting+" unsupported class passed to SettingChanged()")
 	}
+	this.PutInStorage();
 }
 
 ArtMix.prototype.PopulateArtMixlines = function (){
@@ -526,7 +534,7 @@ ArtMix.prototype.PopulateArtMixlines = function (){
 	var ArtMixEvenOdd;
 	var ArtMixSelectedOptions;
 
-	if(typeof LinesAndTimes == 'undefined'){
+	if(typeof this.LinesAndTimes == 'undefined'){
 		this.LinesAndTimes = new Array();
 	}
 
@@ -604,7 +612,7 @@ ArtMix.prototype.PreviewLine = function (index, div){
 }
 
 ArtMix.prototype.DeleteLine = function (index){
-	// Deletes a line from the LinesandTimes array and redraws setting form
+	// Deletes a line from the LinesAndTimes array and redraws setting form
 	if( index < 0 || index > this.LinesAndTimes.length){
 		console.debug( "index sent to DeleteLine(), " + index + " out of range.");
 		return;
@@ -613,6 +621,7 @@ ArtMix.prototype.DeleteLine = function (index){
 	this.DeletedLines.unshift(this.LinesAndTimes.splice(index, 1)[0]);
 	document.getElementById("ArtMixRestore").value = "Restore (" + this.DeletedLines.length +")";
 	this.PopulateArtMixlines();
+	this.PutInStorage();
 }
 
 ArtMix.prototype.RestoreLine = function(){
@@ -627,10 +636,11 @@ ArtMix.prototype.RestoreLine = function(){
 			return 0;
 		});
 	this.PopulateArtMixlines();
+	this.PutInStorage();
 }
 
 ArtMix.prototype.AddLine = function (index){
-	// adds a line to the LinesandTimes array and redraws setting form
+	// adds a line to the LinesAndTimes array and redraws setting form
 	var newLine;
 	if( index < 0 ){
 		console.debug( "index sent to AddLine(), " + index +" out of range.");
@@ -639,12 +649,11 @@ ArtMix.prototype.AddLine = function (index){
 	if(index>0){
 		newLine = JSON.parse(JSON.stringify(this.LinesAndTimes[index]));
 	}else{
-		//todo: change to blank element
 		newLine = {"line":"","time":0,"duration":0,"align":"horizontal","x":0,"y":0,"style":""};
-		//newLine = JSON.parse(JSON.stringify(this.LinesAndTimes[0]));
 	}
 	this.LinesAndTimes.splice(index, 0, newLine);
 	this.PopulateArtMixlines();
+	this.PutInStorage();
 }
 
 
@@ -671,6 +680,7 @@ ArtMix.prototype.EditLine = function (index, key, value){
 				return 1;
 			return 0;
 		});
+	this.PutInStorage();
 	return true;
 }
 
@@ -678,6 +688,9 @@ ArtMix.prototype.EditLine = function (index, key, value){
 ArtMix.prototype.ErrorCheck = function (){
 	var ArtMixLineDivs;
 	var checking;
+	var width = document.getElementById("ArtMixWidth");
+	var height = document.getElementById("ArtMixHeight");
+
 
 	ArtMixLineDiv = document.querySelectorAll(".ArtMixLineDiv");
 
@@ -749,6 +762,7 @@ ArtMix.prototype.ErrorCheck = function (){
 
 
 ArtMix.prototype.ToggleSettings = function (){
+
 	// open or close the setting forms
 
 	if(this.settingsOpen == false){
@@ -769,7 +783,7 @@ ArtMix.prototype.ToggleSettings = function (){
  			ArtMixSettingElements[i].style.transitionDelay = (4+i)/20 + "s";
  		}
  		//lines form
-		setTimeout(this.PopulateArtMixlines, 990);
+		this.PopulateArtMixlines();
 		this.settingsOpen = true;
 	}else{
 		//closing
@@ -822,6 +836,36 @@ ArtMix.prototype.isNumber = function(n){
 
 ArtMix.prototype.downloadConfig = function (){
 	// But it's the first way I thought of to get the settings from the data without creating a file on the server
-	var output = "/* **** Save this as \"config.js\" in the artmix directory *****/    \nvar Settings = " + JSON.stringify(this.Settings) + ";\nvar LinesAndTimes = " + JSON.stringify(this.LinesAndTimes) +";";
+	var output = "/* **** Save this as \"config.js\" in the artmix directory. If you're done editing be sure to set editmode to false. *****/    \n" +
+		"var savedSettings = " + JSON.stringify(this.Settings) + ";\n" +
+		"var savedLinesAndTimes = " + JSON.stringify(this.LinesAndTimes) +";\n" +
+		"var savedAt = \"" + new Date() + "\";";
 	window.open('data:text/html;charset=utf-8,' + encodeURIComponent( output ));
+}
+
+ArtMix.prototype.PutInStorage = function(){
+	localStorage.Settings = JSON.stringify(this.Settings);
+	localStorage.LinesAndTimes = JSON.stringify(this.LinesAndTimes);
+	localStorage.savedAt = new Date();
+}
+
+ArtMix.prototype.OpenStorage = function(){
+	if(this.Settings.editmode == false){
+		return;
+	}
+	var savedAt = new Date(localStorage.savedAt);
+	if(savedAt.getTime() > this.savedAt.getTime()){
+		var r = confirm("The config.js file is older than the values stored in Local Storage.\nMaybe your window closed without saving.\nRestore from Local Storage?");
+		if(r){
+			delete this.Settings;
+			delete this.LinesAndTimes;
+			this.Settings = JSON.parse(localStorage.Settings);
+			this.LinesAndTimes = JSON.parse(localStorage.LinesAndTimes);
+		}else{
+			delete localStorage.Settings;
+			delete localStorage.LinesAndTimes;
+			delete localStorage.savedAt;
+		}
+	}
+
 }
