@@ -122,7 +122,7 @@ ArtMix.prototype.SquareGen = function (){
 	this.divContent = document.getElementById("content");
 
 	//set content CSS and controls CSS
-	var contentCSS = "height: "+(this.Settings.yheight * this.Settings.charSpacing)+"px; width: "+(this.Settings.xwidth * this.Settings.charSpacing)+"px; "
+	var contentCSS = "height: "+((this.Settings.yheight+1) * this.Settings.charSpacing)+"px; width: "+((this.Settings.xwidth +1)* this.Settings.charSpacing)+"px; "
 	this.divContent.style.cssText = contentCSS;
 
 	for(var i=0; i<this.Settings.yheight; ++i){
@@ -217,27 +217,27 @@ ArtMix.prototype.eraseLine = function(line){
 		break;
 		case "vertical":
 			for( var j=0; j<line.line.length; ++j){
-			if(((line.y + j) >= (this.Settings.yheight)) || (line.x >= (this.Settings.xwidth)))
+			if(((+line.y + +j) >= (this.Settings.yheight)) || (line.x >= (this.Settings.xwidth)))
 					continue;
 				var nextChar = line.line.charAt(j);
 				if(nextChar == "_") continue;
-				document.getElementById(this.charIDs[line.y + j][line.x].ID).innerHTML= this.randomCharacter();
+				document.getElementById(this.charIDs[+line.y + +j][line.x].ID).innerHTML= this.randomCharacter();
 				this.charIDs[+line.y + +j][line.x].timecodeExpire = this.AudioTime+line.duration;
 			}
 		break;
 		case "diagonalDown":
 			for( var j=0; j<line.line.length; ++j){
-				if(((line.y + j) >= (this.Settings.yheight)) || ((+line.x + +j) >= (this.Settings.xwidth)))
+				if(((+line.y + +j) >= (this.Settings.yheight)) || ((+line.x + +j) >= (this.Settings.xwidth)))
 					continue;
 				var nextChar = line.line.charAt(j);
 				if(nextChar == "_") continue;
-				document.getElementById(this.charIDs[line.y + j][+line.x + +j].ID).innerHTML= this.randomCharacter();
+				document.getElementById(this.charIDs[+line.y + +j][+line.x + +j].ID).innerHTML= this.randomCharacter();
 				this.charIDs[+line.y + +j][+line.x + +j].timecodeExpire = this.AudioTime+line.duration;
 			}
 		break;
 		case "diagonalUp":
 			for( var j=0; j<line.line.length; ++j){
-				if(((line.y - j) >= (this.Settings.yheight)) || ((+line.x + +j) >= (this.Settings.xwidth)))
+				if(((+line.y - +j) >= (this.Settings.yheight)) || ((+line.x + +j) >= (this.Settings.xwidth)))
 					continue;
 				var nextChar = line.line.charAt(j);
 				if(nextChar == "_") continue;
@@ -259,43 +259,43 @@ ArtMix.prototype.drawLine = function(line){
 				document.getElementById(this.charIDs[line.y][+line.x + +j].ID).innerHTML= ''+
 				'<span class="lineChar ' + this.Settings.FGFont + " " + this.Settings.FGColor + '"" style="' +
 				line.style+'">'+ nextChar + '</span>';
-				this.charIDs[line.y][+line.x + +j].timecodeExpire = this.AudioTime+line.duration;
+				this.charIDs[line.y][+line.x + +j].timecodeExpire = (+this.AudioTime + +line.duration);
 			}
 		break;
 		case "vertical":
 			for( var j=0; j<line.line.length; ++j){
-			if(((line.y + j) >= (this.Settings.yheight)) || (line.x >= (this.Settings.xwidth)))
+				if(((+line.y + +j) >= this.Settings.yheight) || (line.x >= this.Settings.xwidth))
 					continue;
 				var nextChar = line.line.charAt(j);
 				if(nextChar == "_") continue;
-				document.getElementById(this.charIDs[line.y + j][line.x].ID).innerHTML= ''+
+				document.getElementById(this.charIDs[+line.y + +j][line.x].ID).innerHTML= ''+
 				'<span class="lineChar ' + this.Settings.FGFont + " " + this.Settings.FGColor + '"" style="' +
 				line.style+'">'+ nextChar + '</span>';
-				this.charIDs[+line.y + +j][line.x].timecodeExpire = this.AudioTime+line.duration;
+				this.charIDs[+line.y + +j][line.x].timecodeExpire = (+this.AudioTime + +line.duration);
 			}
 		break;
 		case "diagonalDown":
 			for( var j=0; j<line.line.length; ++j){
-				if(((line.y + j) >= (this.Settings.yheight)) || ((+line.x + +j) >= (this.Settings.xwidth)))
+				if(((+line.y + +j) >= this.Settings.yheight) || ((+line.x + +j) >= this.Settings.xwidth))
 					continue;
 				var nextChar = line.line.charAt(j);
 				if(nextChar == "_") continue;
 				document.getElementById(this.charIDs[+line.y + +j][+line.x + +j].ID).innerHTML= ''+
 				'<span class="lineChar ' + this.Settings.FGFont + " " + this.Settings.FGColor + '"" style="' +
 				line.style+'">'+ nextChar + '</span>';
-				this.charIDs[+line.y + +j][line.x + j].timecodeExpire = this.AudioTime+line.duration;
+				this.charIDs[+line.y + +j][+line.x + +j].timecodeExpire = (+this.AudioTime + +line.duration);
 			}
 		break;
 		case "diagonalUp":
 			for( var j=0; j<line.line.length; ++j){
-				if(((line.y - j) >= (this.Settings.yheight)) || ((+line.x + +j) >= (this.Settings.xwidth)) || ((+line.x - +j) <= 0))
+				if(((+line.y - +j) >= this.Settings.yheight) || ((+line.x + +j) >= this.Settings.xwidth) || ((+line.y - +j) < 0))
 					continue;
 				var nextChar = line.line.charAt(j);
 				if(nextChar == "_") continue;
 				document.getElementById(this.charIDs[+line.y - +j][+line.x + +j].ID).innerHTML= ''+
 				'<span class="lineChar ' + this.Settings.FGFont + " " + this.Settings.FGColor + '"" style="' +
 				line.style+'">'+ nextChar + '</span>';
-				this.charIDs[line.y - j][+line.x + +j].timecodeExpire = this.AudioTime+line.duration;
+				this.charIDs[+line.y - +j][+line.x + +j].timecodeExpire = (+this.AudioTime + +line.duration);
 			}
 		break;
 	}
@@ -558,28 +558,28 @@ ArtMix.prototype.PopulateArtMixlines = function (){
 				ArtMixSelectedOptions = ["","","","selected"];
 				break;
 		}
-		ArtMixlinesInnards+= '<div class="ArtMixLineDiv '+ ArtMixEvenOdd + '"">' +
+		ArtMixlinesInnards+= '<div class="ArtMixLineDiv '+ ArtMixEvenOdd + '">' +
 			'<label class="ArtMixLineNumber ArtMixLineForm">' + (i+1) + '</label>' +
 			'<div class="ArtMixDeleteButton" onClick="artmix.DeleteLine(' + i + ')" alt="Remove this line">X</div>' +
 			'<div class="ArtMixPreviewButton" onClick="artmix.PreviewLine(' + i + ', this)">Preview</div>' +
 			'<br/>' +
 			'<input class="ArtMixString ArtMixLineForm ArtMixLine" type="text" placeholder="(line)" value="' + this.LinesAndTimes[i].line +
-			'" oninput="artmix.EditLine(' + i + ',\'line\',this.value)" />' +
+			'" onblur="artmix.EditLine(' + i + ',\'line\',this.value)" />' +
 			'<br/>' +
 
 			'<label for="ArtMixTime" class="ArtMixLineForm">Time:</label>' +
-			'<input class="ArtMixTime ArtMixLineForm ArtMixNumber" type="number" value="' + this.LinesAndTimes[i].time +
-			'" oninput="artmix.EditLine(' + i + ',\'time\',this.value)" onblur="artmix.PopulateArtMixlines()" />' +
+			'<input class="ArtMixTime ArtMixLineForm ArtMixNumber" type="number" step="any" value="' + this.LinesAndTimes[i].time +
+			'" onblur="artmix.EditLine(' + i + ',\'time\',this.value)" onblur="artmix.PopulateArtMixlines()" />' +
 			'<label for="ArtMixDuration" class="ArtMixLineForm">Dur:</label>' +
-			'<input class="ArtMixDuration ArtMixLineForm ArtMixNumber" type="number" value="' + this.LinesAndTimes[i].duration +
-			'" oninput="artmix.EditLine(' + i + ',\'duration\',this.value)" />' +
+			'<input class="ArtMixDuration ArtMixLineForm ArtMixNumber" type="number" step="any" value="' + this.LinesAndTimes[i].duration +
+			'" onblur="artmix.EditLine(' + i + ',\'duration\',this.value)" />' +
 
 			'<label for="ArtMixX" class="ArtMixLineForm">X:</label>' +
 			'<input class="ArtMixX ArtMixLineForm ArtMixNumber" type="number" value="' + this.LinesAndTimes[i].x +
-			'" oninput="artmix.EditLine(' + i + ',\'x\',this.value)" />' +
+			'" onblur="artmix.EditLine(' + i + ',\'x\',this.value)" />' +
 			'<label for="ArtMixY" class="ArtMixLineForm">Y:</label>' +
 			'<input class="ArtMixY ArtMixLineForm ArtMixNumber" type="number" value="' + this.LinesAndTimes[i].y +
-			'" oninput="artmix.EditLine(' + i + ',\'y\',this.value)" />' +
+			'" onblur="artmix.EditLine(' + i + ',\'y\',this.value)" />' +
 			'<br/>' +
 			'<label for="ArtMixOrientation" class="ArtMixLineForm">Align:</label>' +
 			'<select class="ArtMixOrientation ArtMixLineForm" value="" ' +
@@ -590,6 +590,7 @@ ArtMix.prototype.PopulateArtMixlines = function (){
 				'<option value="diagonalUp" ' + ArtMixSelectedOptions[3] + '>Diagonal Up</option>' +
 			'</select>' +
 			'<textarea class="ArtMixStyle ArtMixLineForm ArtMixNumber" type="text" placeholder="CSS (Optional)" ' +
+				' onkeypress="artmix.CleanQuotes(this);" ' +
 				' onblur="artmix.EditLine(' + i + ',\'style\',this.value) " >' + this.LinesAndTimes[i].style + '</textarea>' +
 
 			'</div>' +
@@ -627,14 +628,7 @@ ArtMix.prototype.DeleteLine = function (index){
 ArtMix.prototype.RestoreLine = function(){
 	this.LinesAndTimes.push(this.DeletedLines.pop());
 	document.getElementById("ArtMixRestore").value = "Restore (" + this.DeletedLines.length +")";
-	this.LinesAndTimes.sort(
-		function(a,b){
-			if(a.time < b.time)
-				return -1;
-			if(a.time > b.time)
-				return 1;
-			return 0;
-		});
+	this.SortLines();
 	this.PopulateArtMixlines();
 	this.PutInStorage();
 }
@@ -672,18 +666,24 @@ ArtMix.prototype.EditLine = function (index, key, value){
 	if(index>this.LinesAndTimes.length) return false;
 	this.LinesAndTimes[index][key] = value;
 	this.ErrorCheck();
-	this.LinesAndTimes.sort(
-		function(a,b){
-			if(a.time < b.time)
-				return -1;
-			if(a.time > b.time)
-				return 1;
-			return 0;
-		});
+	if(key == "time"){
+		this.SortLines();
+	}
 	this.PutInStorage();
 	return true;
 }
 
+ArtMix.prototype.SortLines = function (){
+	this.LinesAndTimes.sort(
+		function(a,b){
+			if(parseFloat(a.time) < parseFloat(b.time))
+				return -1;
+			if(parseFloat(a.time) > parseFloat(b.time))
+				return 1;
+			return 0;
+		});
+	this.PopulateArtMixlines();
+}
 
 ArtMix.prototype.ErrorCheck = function (){
 	var ArtMixLineDivs;
@@ -868,4 +868,9 @@ ArtMix.prototype.OpenStorage = function(){
 		}
 	}
 
+}
+
+ArtMix.prototype.CleanQuotes = function(input){
+	input.value = input.value.replace('"',"'");
+	console.log("cleaning double quotes");
 }

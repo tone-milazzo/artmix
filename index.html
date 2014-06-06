@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8" />
+	<title>ArtMixJS: Visualize the Audio (Beta)</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
@@ -16,24 +17,87 @@
 
 	<!-- home grown -->
 	<link rel="stylesheet" href="artmix/css/artmix.css" />
-	<link rel="stylesheet" href="artmix/css/homegrown.css">
+	<link rel="stylesheet" href="style/homegrown.css">
+	<link rel="stylesheet" href="style/superhero.css">
 	<script src="artmix/js/config.js"></script>
 	<script src="artmix/js/artmix.js"></script>
 </head>
 <body>
 	<div class="container">
-		<div class="jumbotron">
-			<h1>ArtMix <small>Visualize the Audio</small></h1>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="jumbotron">
+					<h2>ArtMixJS: <small>Visualize the Audible (Beta)</small></h2>
+				</div>
+			</div>
 		</div>
-		<div id="artmix">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-2">
+				<div id="artmix">
+				</div>
+			</div>
 		</div>
-		<div>
-			<ul class="nav nav-pills">
-				  <li class="active"><a href="#">About</a></li>
-				  <li><a href="#">Install</a></li>
-				  <li><a href="#">To Dos</a></li>
-				  <li><a href="#">Bugs</a></li>
-			</ul>
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="nav nav-pills">
+					  <li class="active"><a href="#about" data-toggle="tab">About</a></li>
+					  <li><a href="#install" data-toggle="tab">Install</a></li>
+					  <li><a href="#todo" data-toggle="tab">To Dos</a></li>
+					  <li><a href="#bugs" data-toggle="tab">Bugs</a></li>
+					  <li><a href="#download" data-toggle="tab">Download</a></li>
+				</ul>
+			</div>
+			<div class="col-md-12">
+				<div class="tab-content">
+					<div class="tab-pane table-hover active" id="about">
+						<p>When I play an audio element my attention tends to drift. I start opening tabs and reading other things and before I know it I've lost track of what I'm supposed to be listening to.<br/>
+							ArtMix gives the user something to look at and hopefully, keep their attention.
+						</p>
+					</div>
+
+					<div class="tab-pane table-hover" id="install">
+						<p>
+							<ol>
+								<li>Download the zip file from this site, or clone the code from git.
+								<li>The <em>/artmix</em> folder is the only one you need. I provided the <em>index.html</em> and <em>/audio</em> to make it a complete demo.
+								<li>Include in your header (depending on your path):<br/>
+										<pre>&lt;link rel=&quot;stylesheet&quot; href=&quot;artmix/css/artmix.css&quot; /&gt;
+&lt;script src=&quot;artmix/js/config.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;artmix/js/artmix.js&quot;&gt;&lt;/script&gt;</pre>
+								<li>And a single div with id="artmix":
+								<pre>&lt;div id=&quot;artmix&quot;&gt;<br/>&lt;/div&gt;</pre>
+								<li>In <em>config.js</em> the editmode should be set to true (<em>"editmode":true</em>). When you load the page the ArtMix box will appear in the upper left corner of the page, like it does on this page. Click on that to open the settings panels. When you're done with the settings, click on the <em>Download</em> button in the lower left. That will open a popup with your new <em>config.js</em> file. Save that in the /artmix directory. When you reload the page you should have all your new settings.</p>
+								<li>When You've settled on your settings manually set editmode to false to hide the settings panels for good.
+						</p>
+					</div>
+
+					<div class="tab-pane table-hover" id="todo">
+						<p>
+							<ol>
+								<li>There's probably a better way to produce the >em>config.js</em> file.
+								<li>I'm not crazy about the Setting Panel's style
+						</p>
+					</div>
+
+					<div class="tab-pane table-hover" id="bugs">
+						<p>None at the moment
+						</p>
+					</div>
+
+					<div class="tab-pane table-hover" id="download">
+						<p><a href="">Download the zip file</a> or get it from <a href="https://github.com/tone-milazzo/artmix" target="_blank">Git</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<div class="container">
+			<h1 class="muted credit"><small>
+				A Free Audio Visualization Tool Written in HTML5 &amp; JavaScript.<br/>
+				Written by <a href="http://tonemilazzo.com" target="_blank" rel="author">Tone Milazzo</a> <a href="https://twitter.com/tone_milazzo" target="_blank">@tone_milazzo</a>
+			</small></h1>
 		</div>
 	</div>
 </body>

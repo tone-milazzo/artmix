@@ -6,18 +6,10 @@
 
 
 audio#controlbox{
-	margin-left: auto;
-	margin-right: auto;
-	transform: translate(-50%, -50%);
-	-webkit-transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
 	border: 1px solid black;
 	height: 28px;
 	width: 200px;
-	position:absolute;
-	bottom: -60px;
-	right: -100px;
+	float: left;
 }
 
 @-webkit-keyframes pulse {
@@ -69,7 +61,7 @@ div#ArtMixMinMax{
 	z-index: 3;
 	border: 1px solid gray;
 	height: 58px;
-	width: 58px;
+	width: 60px;
 	background: silver;
 }
 
@@ -173,6 +165,7 @@ div.ArtMixSettingsOpen{
 
 select.ArtMixSettingForm{
 	width: 100px;
+	color: black;
 }
 
 input#ArtMixAudioSrc1, input#ArtMixAudioSrc2, input#ArtMixAudioSrc3{
@@ -189,7 +182,7 @@ input#ArtMixAudioSrc1, input#ArtMixAudioSrc2, input#ArtMixAudioSrc3{
 div#ArtMixlines{
 	position: absolute;
 	height: 700px;
-	top: 64px;
+	top: 62px;
 	left: 1px;
 	border: 1px solid black;
 	background-color: rgba(255,255,255,0.7);
@@ -247,6 +240,10 @@ input#ArtMixDiff{
 	top: 800px;
 }
 
+select.ArtMixOrientation{
+	color: black;
+}
+
 /*  End ArtMixlines div */
 /*-------------------------------------*/
 
@@ -263,6 +260,7 @@ input#ArtMixDiff{
 label.ArtMixSettingForm{
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
+	color: black;
 }
 
 select.ArtMixSettingForm {
@@ -272,6 +270,7 @@ select.ArtMixSettingForm {
 input.ArtMixSettingForm{
 	height: 16px;
 	padding: 0px;
+	width: 35px;
 }
 
 .ArtMixFormClosed{
@@ -293,9 +292,6 @@ div.ArtMixFormOpen{
     transition: all .5s;
 }
 
-input.ArtMixSettingForm{
-	width: 20px;
-}
 /*  End Form css   */
 /*-------------------------------------*/
 
@@ -428,6 +424,7 @@ input.ArtMixLineForm, label.ArtMixLineForm, textarea.ArtMixLineForm{
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	text-shadow: 3px 3px 3px #fff;
+	color: black;
 }
 
 label.ArtMixLineForm{
@@ -488,6 +485,7 @@ div.ArtMixPreviewButton{
 	padding: 0px 3px;
 	border: 1px white solid;
 	background-color: rgba(255, 255, 255, 0.8);
+	color: black;
 }
 
 
@@ -503,6 +501,7 @@ div.ArtMixDeleteButton{
 	margin-right: 5px;
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
+	color: black;
 }
 
 div.ArtMixAddButton{
@@ -518,6 +517,7 @@ div.ArtMixAddButton{
 	left: -3px;
 	top: 2px;
 	background-color: rgba(255, 255, 255, 0.8);
+	color: black;
 }
 
 textarea.ArtMixStyle{
@@ -534,18 +534,8 @@ input.ArtMixLineForm.ArtMixProblem{
 /*-------------------------------------*/
 
 
-
-audio#controlbox{
-  margin-left: auto;
-  margin-right: auto;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  border: 1px solid black;
-  height: 28px;
-  width: 200px;
-  position:absolute;
-  bottom: -60px;
-  right: -100px;
+/* suppress spinners */
+input[type=number] {
+    -moz-appearance:textfield;
+    -webkit-appearance: textfield;
 }

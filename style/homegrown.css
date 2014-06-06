@@ -26,6 +26,6 @@ html, body {
 	padding-top:5px;
 }
 
-pre{
-	color: black;
+ul.nav{
+	padding-top: 48px;
 }
